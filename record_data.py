@@ -2,7 +2,6 @@ import pyvisa as visa
 from oscilloscope import *
 import sys
 import time
-import atexit
 
 csv_filename = "Run_"+str(int(time.time()))
 

@@ -53,6 +53,7 @@ class Waveform:
 
 class Oscilloscope:
     def __init__(self, connection_string: str) -> None:
+        self.resource_manager = visa.ResourceManager("@py")
         self.scpi = self.resource_manager.open_resource(connection_string)
         self.scpi.read_termination = '\n'
         self.scpi.write_termination = '\n'
