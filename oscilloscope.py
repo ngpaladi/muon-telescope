@@ -53,7 +53,7 @@ class Waveform:
 
 class Oscilloscope:
     def __init__(self, connection_string: str) -> None:
-        self.resource_manager = visa.ResourceManager("@py")
+        self.resource_manager = visa.ResourceManager()
         self.scpi = self.resource_manager.open_resource(connection_string)
         self.scpi.read_termination = '\n'
         self.scpi.write_termination = '\n'
@@ -75,10 +75,10 @@ class Oscilloscope:
             pass
         return self.scpi.chunk_size
 
-    def add_channel(self, channel_id: int) -> Channel:
+    def add_channel(self, channel_id: int, channel_type:ChannelType) -> Channel:
         volts_per_division = float(self.scpi.query("c%d:vdiv?" % channel_id))
-        volatage_offset = float(self.scpi.query("c%d:ofst?" % channel_id))
-        self.channels[channel_id] = Channel()
+        voltage_offset = float(self.scpi.query("c%d:ofst?" % channel_id))
+        self.channels[channel_id] = Channel(channel_id, volts_per_division, voltage_offset, channel_type)
         return
 
     def write(self, string: str) -> str:

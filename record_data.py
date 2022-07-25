@@ -12,7 +12,7 @@ for c in sys.argv[1:]:
 scope = Oscilloscope("USB0::0xF4EC::0xEE38::SDSMMGKD5R3898::INSTR")
 
 for c in channels:
-    scope.add_channel(c)
+    scope.add_channel(c, ChannelType.DC)
 
 scope.timeout(2000)
 scope.chunk_size(20*1024*1024)
