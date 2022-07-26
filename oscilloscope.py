@@ -43,8 +43,8 @@ class Waveform:
             self.values.append(value)
 
         for i in range(0,len(self.values)):
-            self.values[i] = self.values[i]/25*channel.volts_per_division-channel.voltage_offset
-            self.times.append(-(time_per_division*14/2)+i*(1/sampling_rate))     
+            self.values[i] = float(self.values[i]/25.*channel.volts_per_division-channel.voltage_offset)
+            self.times.append(-(float(time_per_division)*7.)+float(i)*(1./float(sampling_rate)))
         return
 
     def __str__(self):
