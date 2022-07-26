@@ -94,7 +94,8 @@ class Oscilloscope:
         return TriggerStatus(int(self.scpi.query("INR?")))
 
     def waveform(self, channel_id: int) -> Waveform:
-        return Waveform()
+        self.scpi.write("c%d:wf? dat2" % channel_id)
+        return Waveform(self.scpi.read_raw(),self.channels[channel_id], self.sample_rate, self.time_per_division)
 
     def initialize(self) -> None:
         self.scpi.write("CHDR OFF")
